@@ -1,66 +1,70 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
 
-export default function Home() {
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
+import { Baby, ChevronRight } from "lucide-react";
+
+export default function LandingPage() {
+  const { login, isAuthenticated } = useAuth();
+  const router = useRouter();
+  const [name, setName] = useState("");
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.push("/main");
+    }
+  }, [isAuthenticated, router]);
+
+  const handleStart = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (name.trim()) {
+      login({ name, email: "demo@example.com" });
+      router.push("/onboarding");
+    }
+  };
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="flex-col" style={{ height: "100vh", padding: "40px 24px", justifyContent: "center" }}>
+      <div className="flex-center" style={{ marginBottom: "40px" }}>
+        <div style={{ background: "var(--primary-light)", padding: "20px", borderRadius: "50%" }}>
+          <Baby size={48} color="var(--primary)" />
         </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </div>
+
+      <h1 className="text-h1" style={{ textAlign: "center", marginBottom: "12px" }}>connectedB</h1>
+      <p className="text-body" style={{ textAlign: "center", color: "var(--text-secondary)", marginBottom: "48px" }}>
+        현명한 부모를 위한<br />데이터 기반 육아 플랫폼
+      </p>
+
+      <form onSubmit={handleStart} className="flex-col gap-4">
+        <div>
+          <label className="text-sm" style={{ display: "block", marginBottom: "8px" }}>어떻게 불러드릴까요?</label>
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="닉네임을 입력해주세요"
+            style={{
+              width: "100%",
+              padding: "16px",
+              borderRadius: "var(--radius-md)",
+              border: "1px solid var(--border)",
+              fontSize: "16px",
+              outline: "none"
+            }}
+          />
         </div>
-      </main>
+
+        <button
+          type="submit"
+          className="btn btn-primary"
+          style={{ width: "100%", marginTop: "16px" }}
+        >
+          육아 여정 시작하기
+          <ChevronRight size={20} style={{ marginLeft: "8px" }} />
+        </button>
+      </form>
     </div>
   );
 }
