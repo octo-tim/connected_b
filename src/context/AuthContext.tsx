@@ -25,6 +25,7 @@ interface AuthContextType {
     preferences: Preferences | null;
     isAuthenticated: boolean;
     login: (user: User) => void;
+    updateUser: (user: User) => void;
     updateBaby: (baby: Baby) => void;
     updatePreferences: (prefs: Preferences) => void;
     logout: () => void;
@@ -59,6 +60,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         localStorage.setItem("conectedB_user", JSON.stringify(userData));
     };
 
+    const updateUser = (userData: User) => {
+        setUser(userData);
+        localStorage.setItem("conectedB_user", JSON.stringify(userData));
+    };
+
     const updateBaby = (babyData: Baby) => {
         setBaby(babyData);
         localStorage.setItem("conectedB_baby", JSON.stringify(babyData));
@@ -81,7 +87,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
 
     return (
-        <AuthContext.Provider value={{ user, baby, preferences, isAuthenticated, login, updateBaby, updatePreferences, logout }}>
+        <AuthContext.Provider value={{ user, baby, preferences, isAuthenticated, login, updateUser, updateBaby, updatePreferences, logout }}>
             {children}
         </AuthContext.Provider>
     );

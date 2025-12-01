@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
-import { Home, ListChecks, Receipt, Tag, TrendingUp, Map as MapIcon, ShoppingBag } from "lucide-react";
+import { Home, ListChecks, Receipt, Tag, TrendingUp, Map as MapIcon, ShoppingBag, User } from "lucide-react";
 
 export default function BottomNav() {
     const router = useRouter();
@@ -15,6 +15,7 @@ export default function BottomNav() {
         { id: "trends", label: "트렌드", icon: TrendingUp, path: "/trends" },
         { id: "record", label: "구매기록", icon: Receipt, path: "/record" },
         { id: "deals", label: "핫딜", icon: Tag, path: "/deals" },
+        { id: "my", label: "내 정보", icon: User, path: "/my" },
     ];
 
     return (
