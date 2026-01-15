@@ -6,7 +6,7 @@ export default function PreparationProgress() {
     return (
         <div className="mx-4 mt-6 bg-white p-5 rounded-2xl shadow-sm border border-gray-100">
             <div className="flex justify-between items-end mb-3">
-                <h3 className="font-bold text-gray-800 text-lg">Essential Preparation</h3>
+                <h3 className="font-bold text-gray-800 text-lg">필수 준비물</h3>
                 <span className="text-2xl font-bold text-brand-teal">
                     {current} <span className="text-gray-400 text-base font-normal">/ {total}</span>
                 </span>
@@ -17,7 +17,7 @@ export default function PreparationProgress() {
                     style={{ width: `${percentage}%` }}
                 ></div>
             </div>
-            <p className="text-right text-xs text-gray-400 mt-2">{percentage}% Completed</p>
+            <p className="text-right text-xs text-gray-400 mt-2">{percentage}% 달성</p>
         </div>
     );
 }
